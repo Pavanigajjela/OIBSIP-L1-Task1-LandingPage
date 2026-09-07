@@ -440,6 +440,64 @@ section {
     color: var(--text-light);
 }
 
+/* Personal Card Section */
+.personal-card-section {
+    background-color: #e0e7ff;
+    padding: 5rem 0;
+}
+
+.personal-card {
+    background-color: var(--bg-white);
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    padding: 3rem;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.personal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+.card-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.card-name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.card-divider {
+    width: 60px;
+    height: 2px;
+    background-color: var(--primary-color);
+    margin: 0 auto 1.5rem;
+}
+
+.card-specialty {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.card-type {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
 /* Footer */
 .footer {
     background: linear-gradient(135deg, var(--secondary-color) 0%, #312e81 100%);
