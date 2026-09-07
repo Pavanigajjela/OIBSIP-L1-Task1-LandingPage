@@ -1,5 +1,7 @@
 # OIBSIP-L1-Task1 Landing Page
 
+![Title Card](home.png)
+
 A visually polished static landing page for FlowSync - a fictional project management SaaS product. This project demonstrates foundational HTML5 and CSS3 layout skills.
 
 ## Tech Stack
