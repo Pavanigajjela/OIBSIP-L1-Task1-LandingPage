@@ -33,7 +33,10 @@ landingpage/
 ├── index.html          # Main HTML structure
 ├── styles.css          # Complete styling
 ├── README.md           # Project documentation
-└── screenshot.png      # Landing page preview
+├── home.png            # Hero section screenshot
+├── features.png        # Features section screenshot
+├── about.png           # About section screenshot
+└── contact.png         # Footer/Contact section screenshot
 ```
 
 ## How to Run
@@ -59,7 +62,17 @@ landingpage/
 
 ## Screenshots
 
-![Landing Page Preview](screenshot.png)
+### Hero Section
+![Home Section](home.png)
+
+### Features Section
+![Features Section](features.png)
+
+### About Section
+![About Section](about.png)
+
+### Footer/Contact Section
+![Contact Section](contact.png)
 
 ## Author
 
