@@ -447,8 +447,7 @@ section {
 }
 
 .personal-card {
-    background-color: var(--bg-white);
-    border: 2px solid var(--primary-color);
+    background: var(--bg-gradient);
     border-radius: 20px;
     padding: 3rem;
     max-width: 400px;
@@ -465,7 +464,7 @@ section {
 
 .card-icon {
     font-size: 3rem;
-    color: var(--primary-color);
+    color: var(--text-white);
     margin-bottom: 1.5rem;
     font-weight: bold;
 }
@@ -473,21 +472,21 @@ section {
 .card-name {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--text-white);
     margin-bottom: 1rem;
 }
 
 .card-divider {
     width: 60px;
     height: 2px;
-    background-color: var(--primary-color);
+    background-color: var(--text-white);
     margin: 0 auto 1.5rem;
 }
 
 .card-specialty {
     font-size: 1rem;
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--text-white);
     margin-bottom: 1rem;
     letter-spacing: 1px;
 }
@@ -495,7 +494,7 @@ section {
 .card-type {
     font-size: 1.1rem;
     font-weight: 500;
-    color: var(--primary-color);
+    color: var(--text-white);
 }
 
 /* Footer */
