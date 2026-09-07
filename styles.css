@@ -60,20 +60,31 @@ body {
     animation: scaleIn 0.5s ease-out;
 }
 
-.intro-title {
+.intro-icon {
     font-size: 4rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.8) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
 }
 
-.intro-subtitle {
+.intro-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--text-white);
+}
+
+.intro-specialty {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+    color: var(--text-white);
+}
+
+.intro-type {
     font-size: 1.5rem;
     font-weight: 500;
-    opacity: 0.95;
+    color: var(--text-white);
 }
 
 @keyframes fadeOut {
