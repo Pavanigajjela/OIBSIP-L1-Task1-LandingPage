@@ -1,204 +1,1423 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlowSync - Streamline Your Projects</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flowly · Your Productivity, Reimagined</title>
+  <!-- Google Fonts: Inter + Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ============================================
+       COLOR PALETTE
+       - Deep midnight base: #0A0618
+       - Vibrant violet: #7C3AED
+       - Electric purple: #A855F7
+       - Coral pink: #FB7185
+       - Soft lavender bg: #F5F3FF
+    ============================================ */
+    :root {
+      --bg-dark: #0A0618;
+      --bg-dark-2: #140B2E;
+      --bg-light: #F5F3FF;
+      --bg-white: #FFFFFF;
+      --accent: #7C3AED;
+      --accent-2: #A855F7;
+      --accent-coral: #FB7185;
+      --accent-amber: #FBBF24;
+      --text-dark: #1A1625;
+      --text-muted: #6B6580;
+      --text-light: #F5F3FF;
+      --text-light-muted: #B8B0D6;
+      --border-light: rgba(124, 58, 237, 0.10);
+      --shadow-soft: 0 12px 40px -12px rgba(124, 58, 237, 0.18);
+      --shadow-card: 0 24px 60px -20px rgba(10, 6, 24, 0.18);
+      --shadow-glow: 0 20px 60px -15px rgba(168, 85, 247, 0.45);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --transition: 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* ---------- RESET ---------- */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.65;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color var(--transition);
+    }
+
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ============================================
+       NAVIGATION BAR
+    ============================================ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(245, 243, 255, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-light);
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.04em;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-coral) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 20px -6px rgba(124, 58, 237, 0.5);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.4rem;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      position: relative;
+      padding: 0.4rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-coral));
+      border-radius: 2px;
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%) !important;
+      color: #fff !important;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.9rem !important;
+      font-weight: 600 !important;
+      box-shadow: 0 8px 22px -6px rgba(124, 58, 237, 0.55);
+      transition: transform var(--transition), box-shadow var(--transition) !important;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px -6px rgba(124, 58, 237, 0.7) !important;
+    }
+
+    .nav-cta::after { display: none !important; }
+
+    /* Mobile nav */
+    .nav-toggle { display: none; }
+    .nav-toggle-label {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      padding: 0.4rem;
+    }
+
+    /* ============================================
+       HERO SECTION
+    ============================================ */
+    .hero {
+      position: relative;
+      background: linear-gradient(165deg, var(--bg-dark) 0%, var(--bg-dark-2) 55%, #1F1240 100%);
+      color: var(--text-light);
+      padding: 6rem 0 7rem;
+      overflow: hidden;
+    }
+
+    /* Gradient mesh glow */
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(50px);
+    }
+
+    .hero::before {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.55) 0%, transparent 65%);
+      top: -200px;
+      right: -150px;
+      animation: float 14s ease-in-out infinite alternate;
+    }
+
+    .hero::after {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(251, 113, 133, 0.35) 0%, transparent 65%);
+      bottom: -200px;
+      left: -130px;
+      animation: float 16s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.1); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      color: var(--text-light);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.5rem 1.1rem;
+      border-radius: 50px;
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-badge i {
+      color: var(--accent-amber);
+      font-size: 0.8rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5.2vw, 3.8rem);
+      color: var(--text-light);
+      margin-bottom: 1.4rem;
+      letter-spacing: -0.04em;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(120deg, var(--accent-2) 0%, var(--accent-coral) 60%, var(--accent-amber) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 1.13rem;
+      color: var(--text-light-muted);
+      margin-bottom: 2.4rem;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      letter-spacing: 0.2px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: #fff;
+      box-shadow: 0 14px 34px -8px rgba(124, 58, 237, 0.65);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 22px 45px -10px rgba(124, 58, 237, 0.8);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-light);
+      border: 1.5px solid rgba(184, 176, 214, 0.35);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(184, 176, 214, 0.6);
+      transform: translateY(-3px);
+    }
+
+    /* Hero visual */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .dashboard-mock {
+      width: 100%;
+      max-width: 440px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-xl);
+      padding: 1.6rem;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 40px 80px -25px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(168, 85, 247, 0.15) inset;
+      animation: floatCard 6s ease-in-out infinite alternate;
+      position: relative;
+    }
+
+    @keyframes floatCard {
+      0% { transform: translateY(0) rotate(-0.5deg); }
+      100% { transform: translateY(-16px) rotate(0.5deg); }
+    }
+
+    .mock-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.4rem;
+    }
+
+    .mock-dots { display: flex; gap: 6px; }
+    .mock-dots span {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .mock-dots span:nth-child(1) { background: var(--accent-coral); }
+    .mock-dots span:nth-child(2) { background: var(--accent-amber); }
+    .mock-dots span:nth-child(3) { background: #34D399; }
+
+    .mock-title {
+      font-size: 0.82rem;
+      color: var(--text-light-muted);
+      font-weight: 500;
+    }
+
+    .mock-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      height: 130px;
+      margin-bottom: 1.4rem;
+      padding: 0 0.3rem;
+    }
+
+    .mock-bar {
+      flex: 1;
+      border-radius: 10px 10px 4px 4px;
+      background: linear-gradient(to top, var(--accent), var(--accent-2));
+      opacity: 0.9;
+      transition: height 0.6s ease;
+      box-shadow: 0 0 20px -5px rgba(168, 85, 247, 0.5);
+    }
+
+    .mock-bar:nth-child(1) { height: 45%; }
+    .mock-bar:nth-child(2) { height: 70%; }
+    .mock-bar:nth-child(3) { height: 55%; }
+    .mock-bar:nth-child(4) { height: 92%; background: linear-gradient(to top, var(--accent-coral), #F97316); }
+    .mock-bar:nth-child(5) { height: 65%; }
+    .mock-bar:nth-child(6) { height: 82%; }
+
+    .mock-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.55rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .mock-row:last-child { margin-bottom: 0; }
+
+    .mock-row-label {
+      font-size: 0.82rem;
+      color: var(--text-light-muted);
+      font-weight: 500;
+    }
+
+    .mock-row-value {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .mock-row-value.accent {
+      color: var(--accent-coral);
+    }
+
+    /* ============================================
+       SECTION BASE
+    ============================================ */
+    .section { padding: 6.5rem 0; }
+
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 3.8rem;
+    }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+      background: rgba(124, 58, 237, 0.08);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      border: 1px solid rgba(124, 58, 237, 0.15);
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.9rem, 3.8vw, 2.6rem);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       FEATURES
+    ============================================ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+
+    .feature-card {
+      background: var(--bg-white);
+      border-radius: var(--radius-xl);
+      padding: 2.4rem 2rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-soft);
+      transition: transform var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-coral), var(--accent-amber));
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 32px 60px -18px rgba(124, 58, 237, 0.25);
+    }
+
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #fff;
+      position: relative;
+    }
+
+    .feature-icon.purple {
+      background: linear-gradient(135deg, #7C3AED, #A855F7);
+      box-shadow: 0 12px 26px -8px rgba(124, 58, 237, 0.6);
+    }
+
+    .feature-icon.coral {
+      background: linear-gradient(135deg, #FB7185, #F97316);
+      box-shadow: 0 12px 26px -8px rgba(251, 113, 133, 0.6);
+    }
+
+    .feature-icon.indigo {
+      background: linear-gradient(135deg, #4F46E5, #7C3AED);
+      box-shadow: 0 12px 26px -8px rgba(79, 70, 229, 0.6);
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card p {
+      font-size: 0.97rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       ABOUT / STATS
+    ============================================ */
+    .about {
+      background: var(--bg-white);
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 65%);
+      top: -100px;
+      left: -100px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .about-content h2 {
+      font-size: clamp(1.9rem, 3.8vw, 2.5rem);
+      margin-bottom: 1.3rem;
+    }
+
+    .about-content p {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      line-height: 1.75;
+    }
+
+    .about-list { margin-top: 2rem; }
+
+    .about-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      margin-bottom: 1.1rem;
+      font-size: 0.99rem;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    .about-list li i {
+      color: var(--accent);
+      font-size: 1.1rem;
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+
+    .stats-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(160deg, var(--bg-light), #FFFFFF);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 2rem 1.4rem;
+      text-align: center;
+      transition: transform var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+      top: -30px;
+      right: -30px;
+      border-radius: 50%;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-coral) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.04em;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ============================================
+       TESTIMONIALS
+    ============================================ */
+    .testimonials { background: var(--bg-light); }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+
+    .testimonial-card {
+      background: var(--bg-white);
+      border-radius: var(--radius-xl);
+      padding: 2.2rem 2rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-soft);
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 0.5rem;
+      right: 1.5rem;
+      font-family: Georgia, serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: rgba(124, 58, 237, 0.08);
+      pointer-events: none;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 32px 60px -18px rgba(124, 58, 237, 0.22);
+    }
+
+    .stars {
+      display: flex;
+      gap: 0.25rem;
+      color: var(--accent-amber);
+      font-size: 0.85rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .testimonial-text {
+      font-size: 0.99rem;
+      color: var(--text-dark);
+      line-height: 1.75;
+      margin-bottom: 1.6rem;
+      flex-grow: 1;
+      position: relative;
+      z-index: 2;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding-top: 1.3rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .author-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .avatar-1 { background: linear-gradient(135deg, #7C3AED, #A855F7); }
+    .avatar-2 { background: linear-gradient(135deg, #FB7185, #F97316); }
+    .avatar-3 { background: linear-gradient(135deg, #4F46E5, #7C3AED); }
+
+    .author-info h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+
+    /* ---------- TITLE CARD / SPLASH SCREEN ---------- */
+    .title-card {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #c8a6e8 0%, #b284d9 40%, #9b6bc9 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 0.5s ease-out 2s forwards;
+    }
+
+    .title-text {
+      font-size: 3rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: slideUp 0.8s ease-out;
+      color: #1e1b2f;
+    }
+
+    .title-text span {
+      color: #3b1e8a;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #2e2445;
+      animation: slideUp 0.8s ease-out 0.2s both;
+    }
+
+    .info-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #3b1e8a;
+      margin-top: 10px;
+      animation: slideUp 0.8s ease-out 0.4s both;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    .footer {
+      background: var(--bg-dark);
+      color: var(--text-light-muted);
+      padding: 4.5rem 0 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.18) 0%, transparent 65%);
+      bottom: -250px;
+      right: -150px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.7fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-brand .logo {
+      color: var(--text-light);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.93rem;
+      line-height: 1.75;
+      max-width: 310px;
+      margin-bottom: 1.6rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-links a {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light-muted);
+      font-size: 1rem;
+      transition: all var(--transition);
+    }
+
+    .social-links a:hover {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      transform: translateY(-4px);
+      border-color: transparent;
+      box-shadow: 0 12px 25px -8px rgba(124, 58, 237, 0.6);
+    }
+
+    .footer-col h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--text-light);
+      margin-bottom: 1.3rem;
+    }
+
+    .footer-col ul li { margin-bottom: 0.75rem; }
+
+    .footer-col ul li a {
+      font-size: 0.93rem;
+      color: var(--text-light-muted);
+      transition: color var(--transition), padding-left var(--transition);
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--accent-2);
+      padding-left: 4px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.86rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-bottom a {
+      color: var(--accent-2);
+    }
+
+    .footer-bottom a:hover { text-decoration: underline; }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 960px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions { justify-content: center; }
+      .hero-visual { order: -1; }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonial-grid { grid-template-columns: 1fr 1fr; }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle-label { display: block; }
+
+      .nav-links {
+        position: fixed;
+        top: 76px;
+        left: 0;
+        right: 0;
+        background: rgba(245, 243, 255, 0.98);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 1rem 1.5rem 1.8rem;
+        border-bottom: 1px solid var(--border-light);
+        box-shadow: 0 25px 50px -15px rgba(10, 6, 24, 0.18);
+        transform: translateY(-130%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s;
+      }
+
+      .nav-toggle:checked ~ .nav-links {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-links a {
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--border-light);
+        font-size: 1rem;
+      }
+
+      .nav-links a::after { display: none; }
+
+      .nav-cta {
+        text-align: center;
+        margin-top: 0.8rem;
+        border-bottom: none !important;
+      }
+
+      .section { padding: 5rem 0; }
+      .features-grid { grid-template-columns: 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 1.2rem; }
+      .hero { padding: 4.5rem 0 5rem; }
+      .hero h1 { font-size: 2.1rem; }
+      .hero p { font-size: 1rem; }
+
+      .btn {
+        width: 100%;
+        padding: 0.95rem 1.4rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .stats-panel { grid-template-columns: 1fr; }
+      .section-header h2 { font-size: 1.75rem; }
+      .feature-card { padding: 2rem 1.5rem; }
+      .testimonial-card { padding: 1.8rem 1.5rem; }
+      .dashboard-mock { padding: 1.2rem; }
+      .footer { padding: 3.5rem 0 1.8rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Title Page / Intro -->
-    <div class="intro-overlay">
-        <div class="intro-content">
-            <div class="intro-icon">&lt;/&gt;</div>
-            <h1 class="intro-title">Pavani Gajjela</h1>
-            <p class="intro-specialty">WEB DEVELOPMENT & DESIGNING</p>
-            <p class="intro-type">Landing Page</p>
-        </div>
+  <!-- ============================================
+       TITLE CARD / SPLASH SCREEN
+  ============================================ -->
+  <div class="title-card">
+    <div class="title-text">landingpage</div>
+    <div class="subtitle">OIBSIP Level 1 Task 1</div>
+    <div class="info-text">Gajjela Pavani</div>
+    <div class="info-text">Web Development Track</div>
+  </div>
+
+  <!-- ============================================
+       NAVIGATION
+  ============================================ -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-mark"><i class="fas fa-bolt"></i></span>
+        Flowly
+      </a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </label>
+
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">FlowSync</div>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+  <!-- ============================================
+       HERO
+  ============================================ -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-star"></i>
+          <span>Rated #1 Productivity App of 2026</span>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <h1 class="hero-title">Streamline Your Projects with FlowSync</h1>
-            <p class="hero-subtitle">The all-in-one project management platform that helps teams collaborate, track progress, and deliver results faster than ever before.</p>
-            <a href="#features" class="cta-button">Get Started Free</a>
+        <h1>Your Productivity, <span class="highlight">Reimagined</span></h1>
+        <p>
+          Flowly brings your tasks, notes, and calendar into one beautiful,
+          distraction-free workspace. Stop juggling apps and start getting
+          things done.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">
+            <i class="fas fa-rocket"></i> Start Free Trial
+          </a>
+          <a href="#features" class="btn btn-secondary">
+            <i class="fas fa-play"></i> See How It Works
+          </a>
         </div>
-    </section>
+      </div>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <h2 class="section-title">Powerful Features</h2>
-            <p class="section-subtitle">Everything you need to manage projects efficiently</p>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3 class="feature-title">Real-time Analytics</h3>
-                    <p class="feature-description">Track project progress with live dashboards and comprehensive reports.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🤝</div>
-                    <h3 class="feature-title">Team Collaboration</h3>
-                    <p class="feature-description">Work together seamlessly with built-in chat, comments, and file sharing.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3 class="feature-title">Task Management</h3>
-                    <p class="feature-description">Organize tasks with Kanban boards, lists, and calendar views.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⏰</div>
-                    <h3 class="feature-title">Time Tracking</h3>
-                    <p class="feature-description">Monitor time spent on tasks and optimize team productivity.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3 class="feature-title">Secure & Reliable</h3>
-                    <p class="feature-description">Enterprise-grade security with 99.9% uptime guarantee.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔌</div>
-                    <h3 class="feature-title">Integrations</h3>
-                    <p class="feature-description">Connect with 100+ tools including Slack, GitHub, and Google Drive.</p>
-                </div>
+      <div class="hero-visual">
+        <div class="dashboard-mock">
+          <div class="mock-header">
+            <div class="mock-dots">
+              <span></span><span></span><span></span>
             </div>
+            <div class="mock-title">Weekly Overview</div>
+          </div>
+          <div class="mock-chart">
+            <div class="mock-bar"></div>
+            <div class="mock-bar"></div>
+            <div class="mock-bar"></div>
+            <div class="mock-bar"></div>
+            <div class="mock-bar"></div>
+            <div class="mock-bar"></div>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">Tasks Completed</span>
+            <span class="mock-row-value">142</span>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">Focus Time</span>
+            <span class="mock-row-value accent">+28%</span>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">Upcoming Deadlines</span>
+            <span class="mock-row-value">3</span>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">Why Choose FlowSync?</h2>
-                    <p class="about-description">Founded in 2024, FlowSync was built by a team of project managers who understood the pain points of existing tools. We believe that project management should be intuitive, not overwhelming.</p>
-                    <p class="about-description">Our mission is to empower teams of all sizes to achieve their goals through intelligent automation and beautiful design. Join over 10,000 teams already using FlowSync to transform their workflow.</p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <span class="stat-number">10K+</span>
-                            <span class="stat-label">Active Teams</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">99.9%</span>
-                            <span class="stat-label">Uptime</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label">Support</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div class="image-placeholder">
-                        <span>🚀</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ============================================
+       FEATURES
+  ============================================ -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Features</span>
+        <h2>Everything you need to stay in flow</h2>
+        <p>
+          Thoughtfully designed tools that work together seamlessly,
+          so you can focus on what matters most.
+        </p>
+      </div>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <h2 class="section-title">What Our Users Say</h2>
-            <p class="section-subtitle">Trusted by teams worldwide</p>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class=" stars">★★★★★</div>
-                    <p class="testimonial-text">"FlowSync transformed how our team works. We've increased productivity by 40% since switching."</p>
-                    <div class="testimonial-author">
-                        <span class="author-name">Sarah Johnson</span>
-                        <span class="author-role">Product Manager, TechCorp</span>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-text">"The intuitive interface and powerful features make project management a breeze. Highly recommended!"</p>
-                    <div class="testimonial-author">
-                        <span class="author-name">Michael Chen</span>
-                        <span class="author-role">CTO, StartupXYZ</span>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-text">"Best investment we've made. The support team is incredibly responsive and helpful."</p>
-                    <div class="testimonial-author">
-                        <span class="author-name">Emily Rodriguez</span>
-                        <span class="author-role">Operations Lead, GrowthCo</span>
-                    </div>
-                </div>
-            </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon purple">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <h3>Unified Workspace</h3>
+          <p>
+            Bring your tasks, notes, and calendar into a single, organized
+            view. No more switching between apps.
+          </p>
         </div>
-    </section>
 
-    <!-- Personal Card Section -->
-    <section class="personal-card-section">
-        <div class="container">
-            <div class="personal-card">
-                <div class="card-icon">&lt;/&gt;</div>
-                <h2 class="card-name">Pavani Gajjela</h2>
-                <div class="card-divider"></div>
-                <p class="card-specialty">WEB DEVELOPMENT & DESIGNING</p>
-                <p class="card-type">Landing Page</p>
-            </div>
+        <div class="feature-card">
+          <div class="feature-icon coral">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Smart Time Blocking</h3>
+          <p>
+            AI-powered scheduling that protects your deep work hours and
+            automatically adjusts when things change.
+          </p>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer id="contact" class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3 class="footer-title">FlowSync</h3>
-                    <p class="footer-description">Streamline your projects and boost team productivity.</p>
-                </div>
-                <div class="footer-section">
-                    <h3 class="footer-title">Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#testimonials">Testimonials</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3 class="footer-title">Contact</h3>
-                    <ul class="footer-links">
-                        <li><a href="mailto:hello@flowsync.com">hello@flowsync.com</a></li>
-                        <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3 class="footer-title">Follow Us</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">LinkedIn</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">GitHub</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 FlowSync. All rights reserved.</p>
-            </div>
+        <div class="feature-card">
+          <div class="feature-icon indigo">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Insightful Analytics</h3>
+          <p>
+            Understand your productivity patterns with beautiful reports
+            and actionable recommendations.
+          </p>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       ABOUT / STATS
+  ============================================ -->
+  <section class="section about" id="about">
+    <div class="container about-inner">
+      <div class="about-content">
+        <span class="section-eyebrow">About Flowly</span>
+        <h2>Built for deep work, designed for calm</h2>
+        <p>
+          We started Flowly because we were tired of productivity tools that
+          felt like more work than the work itself. Every feature is designed
+          to reduce friction and help you enter a state of flow faster.
+        </p>
+        <p>
+          Today, Flowly is trusted by over 200,000 professionals, students,
+          and creators around the world.
+        </p>
+
+        <ul class="about-list">
+          <li>
+            <i class="fas fa-circle-check"></i>
+            <span>Privacy-first: your data stays yours, always</span>
+          </li>
+          <li>
+            <i class="fas fa-circle-check"></i>
+            <span>Works offline and syncs beautifully when you're back</span>
+          </li>
+          <li>
+            <i class="fas fa-circle-check"></i>
+            <span>Loved by remote teams, freelancers, and students alike</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="stats-panel">
+        <div class="stat-card">
+          <div class="stat-value">200K+</div>
+          <div class="stat-label">Active Users</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4.9★</div>
+          <div class="stat-label">Average Rating</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">1.2M</div>
+          <div class="stat-label">Tasks Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">98%</div>
+          <div class="stat-label">Would Recommend</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       TESTIMONIALS
+  ============================================ -->
+  <section class="section testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Testimonials</span>
+        <h2>Loved by people who get things done</h2>
+        <p>
+          Don't just take our word for it — here's what our community has to say.
+        </p>
+      </div>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "Flowly completely changed how I work. I used to have 6 different
+            apps open just to manage my day. Now everything lives in one place
+            and I actually finish my tasks."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar avatar-1">SA</div>
+            <div class="author-info">
+              <h4>Sarah Ahmed</h4>
+              <span>Product Designer, Lumen</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "The time blocking feature is a game changer. It's like having a
+            personal assistant who understands when I do my best work and
+            protects that time automatically."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar avatar-2">MR</div>
+            <div class="author-info">
+              <h4>Marcus Rivera</h4>
+              <span>Founder, Northwind Studio</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <p class="testimonial-text">
+            "As a student, keeping track of assignments across five classes was
+            a nightmare. Flowly makes it simple, calm, and even kind of fun.
+            Highly recommend to anyone studying."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar avatar-3">PN</div>
+            <div class="author-info">
+              <h4>Priya Nair</h4>
+              <span>Graduate Student, MIT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+  ============================================ -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <span class="logo-mark"><i class="fas fa-bolt"></i></span>
+            Flowly
+          </a>
+          <p>
+            The calm productivity workspace for people who want to do their
+            best work without the chaos.
+          </p>
+          <div class="social-links">
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Integrations</a></li>
+            <li><a href="#">Changelog</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press Kit</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Flowly Inc. All rights reserved.</p>
+        <p>Made with <i class="fas fa-heart" style="color:#FB7185;"></i> for people who love to flow.</p>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
